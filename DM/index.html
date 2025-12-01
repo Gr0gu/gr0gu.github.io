@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discrete Math</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="scripts.js" defer type="module"></script>
+</head>
+
+<body>
+    <header>
+        <nav><a href="/">Home</a></nav>
+    </header>
+    <main>
+        <h1>Welcome to Discrete Math</h1>
+        <p>This is the main page for the Discrete Math Lab 1.</p>
+        <div id="root">
+            <details open name="tasks">
+                <summary>Subsets</summary>
+                <div id="subsets-root">
+                    <p>Given an integer array set of unique elements, which may include subsets, return all possible
+                        subsets (the power set).
+                    </p>
+
+                    <label for="subsets-input">Input (ex: [1,2,3,[4,5]]):</label>
+                    <input type="text" id="subsets-input" value="[1,2,3]">
+                    <button id="subsets-generate">Generate Subsets</button>
+                    <div id="subsets-output"></div>
+                </div>
+            </details>
+            <details name="tasks">
+                <summary>XNOR</summary>
+                <div id="xnor-root">
+                    <p>Create a program that would ask for two boolean values (true or false, 0 or 1) and would output
+                        the result for the XNOR operation performed on them.
+                        You're allowed to use only `and`, `or` and `not` operations.
+                    </p>
+                    
+                    <label for="xnor-input">Input (ex: 1 0):</label>
+                    <input type="text" id="xnor-input" value="1 0">
+                    <button id="xnor-calculate">Calculate XNOR</button>
+                    <div id="xnor-output"></div>
+                </div>
+            </details>
+            <details name="tasks">
+                <summary>Next Smaller Divisible Number</summary>
+                <div id="smaller-divisible-root">
+                    <p>Write a program that takes as input a positive natural number N and an integer M. Your program
+                        must find the largest possible number S such that:
+                    <ol>
+                        <li>S < N</li>
+                        <li>S is formed using exactly the same digits as N</li>
+                        <li>S is evenly divisible by M (i.e., S(modM)==0)</li>
+                    </ol>
+                    If no such number S exists, the program should return -1. Your program must be
+                    efficient enough to handle the 18-digit input size (i.e., you cannot generate all 18!
+                    permutations).
+                    </p>
+
+                    <label for="smaller-divisible-input">Input (ex: N M):</label>
+                    <input type="text" id="smaller-divisible-input" value="321 4">
+                    <button id="smaller-divisible-calculate">Calculate S</button>
+                    <div id="smaller-divisible-output"></div>
+                </div>
+            </details>
+            <details open name="tasks">
+                <summary>Truth table solver</summary>
+                <div id="truth-table-root">
+                    <p>You have to write a program that computes the truth table for various expressions. The set of
+                        expressions are limited to:
+                    <ul>
+                        <li> `and` operation </li>
+                        <li> `or` operation </li>
+                        <li> `not` operation </li>
+                        <li> supports parenthesis </li>
+                    </ul>
+                    </p>
+                </div>
+            </details>
+            <details open name="tasks">
+                <summary>Sierpinski carpet</summary>
+                <div id="sierpinski-carpet-root">
+                    <p>Write a program that prints the Sierpinski carpet for the depth `n`, where `n` is an input
+                        value.<br>
+                        <b>Restrictions:</b><br>
+                        You don't have to use any libraries for this exercise. The exception are libraries that can help
+                        you display more beautifully the squares created<br>
+                        <b>Interesting fact:</b><br>
+                        Mobile phone and Wi-Fi fractal antennas have been produced in the form of a few iterations of
+                        the Sierpiński carpet. Due to their self-similarity and scale invariance, they easily
+                        accommodate multiple frequencies. They are also easy to fabricate and smaller than conventional
+                        antennas of similar performance, thus being optimal for pocket-sized mobile phones
+
+                    </p>
+                </div>
+            </details>
+        </div>
+    </main>
+
+    <footer>
+        <p>by gr0gu</p>
+    </footer>
+</body>
+
+</html>
