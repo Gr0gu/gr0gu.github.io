@@ -43,7 +43,7 @@ function evaluateExpression(expr, vars, values) {
 }
 
 rl.question("Enter expression:", (input) => {
-    const expr = input.replaceAll('+', '&&').replaceAll('*', '||');
+    const expr = input.replaceAll('+', '||').replaceAll('*', '&&');
     const vars = input.match(/[A-Za-z]/g);
 
     const uniqueVars = [...new Set(vars)];

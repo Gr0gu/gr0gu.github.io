@@ -13,12 +13,13 @@
     <header>
         <nav><a href="/">Home</a></nav>
     </header>
-    <main>
-        <h1>Welcome to Discrete Math</h1>
-        <p>This is the main page for the Discrete Math Lab 1.</p>
-        <div id="root">
+    <main id="root">
+        <h1>Discrete Math</h1>
+
+        <section>
+            <h2>Lab 1.</h2>
             <details open name="tasks">
-                <summary>Subsets</summary>
+                <summary>1. Subsets</summary>
                 <div id="subsets-root">
                     <p>Given an integer array set of unique elements, which may include subsets, return all possible
                         subsets (the power set).
@@ -31,13 +32,14 @@
                 </div>
             </details>
             <details name="tasks">
-                <summary>XNOR</summary>
+                <summary>2. XNOR</summary>
                 <div id="xnor-root">
-                    <p>Create a program that would ask for two boolean values (true or false, 0 or 1) and would output
+                    <p>Create a program that would ask for two boolean values (true or false, 0 or 1) and would
+                        output
                         the result for the XNOR operation performed on them.
                         You're allowed to use only `and`, `or` and `not` operations.
                     </p>
-                    
+
                     <label for="xnor-input">Input (ex: 1 0):</label>
                     <input type="text" id="xnor-input" value="1 0">
                     <button id="xnor-calculate">Calculate XNOR</button>
@@ -45,9 +47,10 @@
                 </div>
             </details>
             <details name="tasks">
-                <summary>Next Smaller Divisible Number</summary>
+                <summary>3. Next Smaller Divisible Number</summary>
                 <div id="smaller-divisible-root">
-                    <p>Write a program that takes as input a positive natural number N and an integer M. Your program
+                    <p>Write a program that takes as input a positive natural number N and an integer M. Your
+                        program
                         must find the largest possible number S such that:
                     <ol>
                         <li>S < N</li>
@@ -66,7 +69,7 @@
                 </div>
             </details>
             <details open name="tasks">
-                <summary>Truth table solver</summary>
+                <summary>4. Truth table solver</summary>
                 <div id="truth-table-root">
                     <p>You have to write a program that computes the truth table for various expressions. The set of
                         expressions are limited to:
@@ -77,26 +80,314 @@
                         <li> supports parenthesis </li>
                     </ul>
                     </p>
+                    <label for="truth-table-input">Input (ex: (!x + y) * z + (!z * y * k)):</label>
+                    <input type="text" id="truth-table-input" value="(!x + y) * z + (!z * y * k)">
+                    <button id="truth-table-generate">Generate Truth Table</button>
+                    <div id="truth-table-output"></div>
                 </div>
             </details>
             <details open name="tasks">
-                <summary>Sierpinski carpet</summary>
+                <summary>5. Sierpinski carpet</summary>
                 <div id="sierpinski-carpet-root">
                     <p>Write a program that prints the Sierpinski carpet for the depth `n`, where `n` is an input
                         value.<br>
                         <b>Restrictions:</b><br>
-                        You don't have to use any libraries for this exercise. The exception are libraries that can help
+                        You don't have to use any libraries for this exercise. The exception are libraries that can
+                        help
                         you display more beautifully the squares created<br>
                         <b>Interesting fact:</b><br>
-                        Mobile phone and Wi-Fi fractal antennas have been produced in the form of a few iterations of
+                        Mobile phone and Wi-Fi fractal antennas have been produced in the form of a few iterations
+                        of
                         the Sierpiński carpet. Due to their self-similarity and scale invariance, they easily
-                        accommodate multiple frequencies. They are also easy to fabricate and smaller than conventional
+                        accommodate multiple frequencies. They are also easy to fabricate and smaller than
+                        conventional
                         antennas of similar performance, thus being optimal for pocket-sized mobile phones
-
                     </p>
+                    <label for="sierpinski-carpet-input">Input (depth n):</label>
+                    <input type="number" id="sierpinski-carpet-input" value="3" min="0" max="6">
+                    <button id="sierpinski-carpet-generate">Generate Carpet</button>
+                    <canvas id="sierpinski-carpet-output" width="300" height="300"></canvas>
                 </div>
             </details>
-        </div>
+        </section>
+
+        <section>
+            <h2>Lab. 2</h2>
+            <details open name="tasks">
+                <summary>1. Random vulnerability</summary>
+                <div id="vulnerability-root">
+                    <p>
+                    <p>You've stumbled onto a significant vulnerability in a commonly used cryptographic library. It
+                        turns out that the random number generator it uses frequently produces the same primes when it
+                        is generating keys.</p>
+
+                    <p>
+                        Exploit this knowledge to factor the (hexadecimal) keys below, and enter your answer as the last
+                        six digits of the largest factor you find (in decimal).</p>
+
+                    <p>Key 1:
+                        1c7bb1ae67670f7e6769b515c174414278e16c27e95b43a789099a1c7d55c717b2f0a0442a7d49503ee09552588ed9bb6eda4af738a02fb31576d78ff72b2499b347e49fef1028182f158182a0ba504902996ea161311fe62b86e6ccb02a9307d932f7fa94cde410619927677f94c571ea39c7f4105fae00415dd7d
+                    </p>
+                    <p>Key 2:
+                        2710e45014ed7d2550aac9887cc18b6858b978c2409e86f80bad4b59ebcbd90ed18790fc56f53ffabc0e4a021da2e906072404a8b3c5555f64f279a21ebb60655e4d61f4a18be9ad389d8ff05b994bb4c194d8803537ac6cd9f708e0dd12d1857554e41c9cbef98f61c5751b796e5b37d338f5d9b3ec3202b37a32f
+                    </p>
+                    </p>
+                    <button id="vulnerability-generate">Calculate</button>
+                    <div id="vulnerability-output"></div>
+                </div>
+            </details>
+
+            <details open name="tasks">
+                <summary>2. RSA</summary>
+                <div id="rsa-root">
+                    <p>
+                        Make a program that will implement the RSA algorithm made by you and with help of this program
+                        you can encrypt any string and then decrypt it.
+                    </p>
+                    <label for="rsa-encrypt-input">Input (String to encrypt):</label>
+                    <input type="text" id="rsa-encrypt-input" value="HELLO">
+                    <button id="rsa-encrypt">Encrypt</button>
+                    <label for="rsa-decrypt-input">Input (String to decrypt):</label>
+                    <input type="text" id="rsa-decrypt-input" value="">
+                    <button id="rsa-decrypt">Decrypt</button>
+                    <div id="rsa-output"></div>
+                </div>
+            </details>
+
+            <details open name="tasks">
+                <summary>3. Check Password</summary>
+                <div id="password-root">
+                    <p>
+                    <p>You are writing a patch for a legacy system. The system requires passwords to follow specific
+                        strength rules. However, server resources are expensive, so each operation you perform to fix
+                        the password has a different "computational cost."]
+                    </p>
+
+                    <p><b>A password is considered Strong if:</b>
+                    <ol>
+                        <li>Length: It has at least 6 characters and at most 20 characters.</li>
+                        <li>Diversity: It contains at least one lowercase letter [a-z], one uppercase letter [A-Z], and
+                            one
+                            digit [0-9]. (Special characters are not required for this legacy system).</li>
+                        <li>No Echoes: It does not contain two identical characters in a row (e.g., "aa" is invalid,
+                            "aba"
+                            is valid).</li>
+                        <li>No Sequences: It does not contain two characters that are sequential in ASCII order (e.g.,
+                            "ab",
+                            "12", "YZ" are invalid. "ac", "13", "YZA" are valid).</li>
+                    </ol>
+                    <b>Result of program: Return the minimum cost to make the password strong.</b>
+                    </p>
+                    <p>
+                        The Cost System: Because the database is old, changing the length of a string is expensive, but
+                        flipping a bit (replacing) is cheap.
+                    <ul>
+                        <li>Replace a character: Cost 1</li>
+                        <li>Insert a character: Cost 2</li>
+                        <li>Delete a character: Cost 3</li>
+                    </ul>
+                    </p>
+                    </p>
+                    <label for="password-input">Password:</label>
+                    <input type="text" id="password-input" value="HAgst261#">
+                    <button id="password-check">Check</button>
+                    <div id="password-output"></div>
+                </div>
+            </details>
+
+            <details open name="tasks">
+                <summary>4. Palindrome</summary>
+                <div id="palindrome-root">
+                    <p>
+                        You are given a string str. You can convert str to a palindrome by adding characters in front of
+                        it. Return the shortest palindrome you can find by performing this transformation.
+                    </p>
+                    <label for="palindrome-input">String:</label>
+                    <input type="text" id="palindrome-input" value="aaceca">
+                    <button id="palindrome-calculate">Calculate</button>
+                    <div id="palindrome-output"></div>
+                </div>
+            </details>
+
+            <details open name="tasks">
+                <summary>5. Cracking the password</summary>
+                <div id="cracking-password-root">
+                    <p>
+                    <p>
+                        You obtained a secret message that was encrypted using Vigenère cipher with a simple pass
+                        phrase. Thus, it is vulnerable to frequency analysis. Decode this message and find out what does
+                        this message say and what is the encryption key.
+                    </p>
+                    <b>Cipher message:</b><br>
+                    OOGNVMTNTCLUOGZSZSHTXAZGMOMEPKWDDQM
+                    </p>
+                    <button id="cracking-password-calculate">Decrypt</button>
+                    <div id="cracking-password-output"></div>
+                </div>
+            </details>
+
+        </section>
+
+        <section>
+            <h2>Lab. 3</h2>
+            <details open name="tasks">
+                <summary>1. Courses</summary>
+                <div id="courses-root">
+                    <p>
+                        You are given an integer n, which indicates that there are n courses labeled from 1 to n. You
+                        are also given an array relations where <code>relations[i] = [prevCourse, nextCourse]</code>,
+                        representing a
+                        prerequisite relationship between course <code>prevCourse</code> and course
+                        <code>nextCourse</code>: course <code>prevCourse</code> has
+                        to be taken before course <code>nextCourse</code>.
+                    </p>
+                    <p>
+                        In one semester, you can take any number of courses as long as you have taken all the
+                        prerequisites in the previous semester for the courses you are taking.</p>
+                    <p>
+                        Return the minimum number of semesters needed to take all courses. If there is no way to take
+                        all the courses, return −1.
+                    </p>
+                    <p>
+                        <b>Example:</b><br>
+                        <b>Input:</b> <code>n=3, relations = [[1,3],[2,3]]</code><br>
+                        <b>Output:</b> 2
+                    </p>
+
+                    <label for="courses-input-n">Number of courses (n):</label>
+                    <input type="number" id="courses-input-n" value="3" min="1">
+                    <label for="courses-input-relations">Relations (ex: [[1,3],[2,3]]):</label>
+                    <input type="text" id="courses-input-relations" value="[[1,3],[2,3]]">
+                    <button id="courses-calculate">Calculate Semesters</button>
+                    <div id="courses-output"></div>
+                </div>
+            </details>
+
+            <details open name="tasks">
+                <summary>2. Cheapest Flights</summary>
+                <div id="cheapest-flights-root">
+                    <p>
+                        A certain number of flights connect s cities. You are provided an array of flights where
+                        <code>flights[i] = [from<sub>i</sub>, to<sub>i</sub>, price<sub>i</sub>]</code> indicates that
+                        there is a flight from city <code>from<sub>i</sub></code> to city <code>to<sub>i</sub></code>
+                        with cost <code>price<sub>i</sub></code>. You are also given three integers start, destination,
+                        and k. Start represents
+                        the start point of the graph and destination represents the city where you want to fly. The
+                        variable k represents the number of stops that are allowed to be done. Return message no route
+                        if there is no such route.
+                    </p>
+
+                    <label for="cheapest-flights-input-n">Number of courses (n):</label>
+                    <input type="number" id="cheapest-flights-input-n" value="4" min="1">
+                    <label for="cheapest-flights-input-relations">Flights:</label>
+                    <input type="text" id="cheapest-flights-input-relations"
+                        value="[[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]]"
+                        style="width: auto; field-sizing: content; max-width: fit-content;">
+                    <label for="cheapest-flights-input-start">Start:</label>
+                    <input type="number" id="cheapest-flights-input-start" value="0" min="0">
+                    <label for="cheapest-flights-input-destination">Destination:</label>
+                    <input type="number" id="cheapest-flights-input-destination" value="3" min="0">
+                    <label for="cheapest-flights-input-k">Stops (k):</label>
+                    <input type="number" id="cheapest-flights-input-k" value="1" min="0">
+                    <button id="cheapest-flights-calculate" style="display: block;">Calculate</button>
+                    <div id="cheapest-flights-output"></div>
+                </div>
+            </details>
+
+            <details open name="tasks">
+                <summary>3. Matrix</summary>
+                <div id="matrix-root">
+                    <p>
+                        You have a set of 20 people connected via a friendship matrix. The whole list is given in
+                        matrix.txt.
+                    </p>
+                    <div class="subtask">
+                        <h3>3.1 Friends</h3>
+                        <p>Find the person with the most friends.</p>
+                        <button id="friends-calculate">Calculate</button>
+                        <div id="friends-output"></div>
+                    </div>
+                    <div class="subtask">
+                        <h3>3.2 Sort</h3>
+                        <p>Sort all the people by the number of friends.</p>
+                        <button id="sort-calculate">Calculate</button>
+                        <div id="sort-output"></div>
+                    </div>
+                    <div class="subtask">
+                        <h3>3.3 Let's do ratings</h3>
+                        <p>How to do that? Well, each person in the graph is connected to everyone else at some level.
+                            Therefore, each person will have a list of connections which is as long as the total list of
+                            people in the graph (in our case, 20). You then have to compute the shortest path from each
+                            of the nodes to each of the other nodes.
+                        </p>
+                        <p>
+                            For example, let’s say that you found that from node 0 you can reach node 3 in 5 steps (that
+                            is, the shortest path connecting nodes 0 and 3 has 5 steps). That means that node 3 will be
+                            a connection of level 5 to node 0 and will therefore contribute to 0 with 4 points.
+                        </p>
+                        <p>
+                            As a procedure, you can take each item n and then compute the distances between n and all
+                            the other vertices of the graph. You can use these distances to compute the value that is
+                            added by each of the other n − 1 vertices to n. Sum it and you’ll have the value of vertex
+                            n.
+                        </p>
+                        <p>
+                            In order to find the shortest path between two vertices, you’ll have to use Dijkstra's
+                            algorithm. You can find plenty of implementations of that algorithm online.
+                            Compute the points for each person in our network. Let’s call it ”Rating”
+                        </p>
+                        <button id="rating-calculate">Calculate</button>
+                        <div id="rating-output"></div>
+                    </div>
+                    <div class="subtask">
+                        <h3>3.4 Influential people</h3>
+                        <p>Let’s say that each of these people has a certain rate of posting content. Obviously, people
+                            who communicate more are much more influential. Suppose that you need to promote a new brand
+                            using social media. We found out how often each of these 20 people writes something on their
+                            walls. You can find it in influence.txt
+                        </p>
+                        <p>
+                            Whom of these people will you contact? Why? Be advised that not only the frequency of
+                            posting matters, but also the number of friends!
+                        </p>
+                        <p>
+                            Use the data from the previous exercise and find the new ”Rating” for each person by
+                            multiplying it with 0.5 of the posting rate.
+                        </p>
+                        <p>
+                            Please sort the people by the newly computed rating.
+                        </p>
+                        <button id="influential-calculate">Calculate</button>
+                        <div id="influential-output"></div>
+                    </div>
+                    <div class="subtask">
+                        <h3>3.5 Analyse your content</h3>
+                        <p>You are publishing a book and would like to promote it through the use of social media. The
+                            book’s title is ”From T-Rex to Multi Universes: How the Internet has Changed Politics, Art
+                            and Cute Cats.” You have done some research in the world’s most popular social network and
+                            have found that the range of interests is stored in interests.txt
+                            Analyse your title and see what spectre of interests is your book marketable to.
+                        </p>
+                        <button id="analyze-calculate">Calculate</button>
+                        <div id="analyze-output"></div>
+                    </div>
+                    <div class="subtask">
+                        <h3>3.6 Promote it</h3>
+                        <p>We have provided you with a list of interests of each of these people. You can find it in
+                            interests.txt.
+                        </p>
+                        <p>Considering the set of interests you have chosen, who of them would you market the book to?
+                            Let’s say that a person has 5 of her interests coinciding with your books and she has a
+                            Rating of 346. Multiply her rating with the 0.2 * coinciding interests to see a final score.
+                            Sort the people by this final score.</p>
+                        <p>Provide us with a list of 5 people we should contact to make your book a bestseller! Please
+                            use the names found in people_interests.txt.</p>
+                        <button id="promote-calculate">Calculate</button>
+                        <div id="promote-output"></div>
+                    </div>
+                </div>
+            </details>
+        </section>
     </main>
 
     <footer>
