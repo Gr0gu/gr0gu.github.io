@@ -14,7 +14,9 @@ function generateSubsets(i, input, result, subset) {
 
 //write input in format [el1, el2, el3, ...]
 export default function subsets(answer){
+    console.log(answer);
     const input = JSON.parse(answer);
+    console.log(input);
 
     const result = [];
     generateSubsets(0, input, result, []);

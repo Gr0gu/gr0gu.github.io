@@ -124,15 +124,14 @@
                     <p>
                         Exploit this knowledge to factor the (hexadecimal) keys below, and enter your answer as the last
                         six digits of the largest factor you find (in decimal).</p>
-
-                    <p>Key 1:
-                        1c7bb1ae67670f7e6769b515c174414278e16c27e95b43a789099a1c7d55c717b2f0a0442a7d49503ee09552588ed9bb6eda4af738a02fb31576d78ff72b2499b347e49fef1028182f158182a0ba504902996ea161311fe62b86e6ccb02a9307d932f7fa94cde410619927677f94c571ea39c7f4105fae00415dd7d
                     </p>
-                    <p>Key 2:
-                        2710e45014ed7d2550aac9887cc18b6858b978c2409e86f80bad4b59ebcbd90ed18790fc56f53ffabc0e4a021da2e906072404a8b3c5555f64f279a21ebb60655e4d61f4a18be9ad389d8ff05b994bb4c194d8803537ac6cd9f708e0dd12d1857554e41c9cbef98f61c5751b796e5b37d338f5d9b3ec3202b37a32f
-                    </p>
-                    </p>
-                    <button id="vulnerability-generate">Calculate</button>
+                    <label for="vulnerability-input-key1">Key 1:</label>
+                    <textarea id="vulnerability-input-key1" rows="4"
+                        style="width: 100%;">1c7bb1ae67670f7e6769b515c174414278e16c27e95b43a789099a1c7d55c717b2f0a0442a7d49503ee09552588ed9bb6eda4af738a02fb31576d78ff72b2499b347e49fef1028182f158182a0ba504902996ea161311fe62b86e6ccb02a9307d932f7fa94cde410619927677f94c571ea39c7f4105fae00415dd7d</textarea>
+                    <label for="vulnerability-input-key2">Key 2:</label>
+                    <textarea id="vulnerability-input-key2" rows="4"
+                        style="width: 100%;">2710e45014ed7d2550aac9887cc18b6858b978c2409e86f80bad4b59ebcbd90ed18790fc56f53ffabc0e4a021da2e906072404a8b3c5555f64f279a21ebb60655e4d61f4a18be9ad389d8ff05b994bb4c194d8803537ac6cd9f708e0dd12d1857554e41c9cbef98f61c5751b796e5b37d338f5d9b3ec3202b37a32f</textarea>
+                    <button id="vulnerability-generate" style="display: block;">Calculate</button>
                     <div id="vulnerability-output"></div>
                 </div>
             </details>
@@ -279,8 +278,8 @@
 
                     <label for="cheapest-flights-input-n">Number of courses (n):</label>
                     <input type="number" id="cheapest-flights-input-n" value="4" min="1">
-                    <label for="cheapest-flights-input-relations">Flights:</label>
-                    <input type="text" id="cheapest-flights-input-relations"
+                    <label for="cheapest-flights-input-flights">Flights:</label>
+                    <input type="text" id="cheapest-flights-input-flights"
                         value="[[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]]"
                         style="width: auto; field-sizing: content; max-width: fit-content;">
                     <label for="cheapest-flights-input-start">Start:</label>
@@ -304,7 +303,8 @@
                     <div class="subtask">
                         <h3>3.1 Friends</h3>
                         <p>Find the person with the most friends.</p>
-                        <button id="friends-calculate">Calculate</button>
+                        <input type="file" id="friends-file-input" accept=".txt">
+                        <button id="friends-calculate" style="display: block;">Calculate</button>
                         <div id="friends-output"></div>
                     </div>
                     <div class="subtask">
