@@ -786,6 +786,41 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+    /* 3.4.5 Noun Popularity Coefficient Ranking Matrix */
+    const popRatingRoot = document.getElementById('tweet-popularity-rating-root');
+
+    if (popRatingRoot) {
+        const popRatingButton = popRatingRoot.querySelector('.calculate');
+        const output = popRatingRoot.querySelector('.output');
+
+        popRatingButton.addEventListener('click', async () => {
+            const { default: parseNounPopularityRating } = await import('./3/tweet_popularity_rating.js');
+
+            output.innerHTML = '<div>Normalizing multi-variable parameters and calculating metrics...</div>';
+
+            try {
+                const rankedNouns = await parseNounPopularityRating();
+
+                let rowsHtml = '';
+                rankedNouns.slice(0, 10).forEach((item, index) => {
+                    rowsHtml += `<div>${index + 1}. <strong>${item.noun}</strong> — Rating: ${item.score.toFixed(2)} (Freq: ${item.frequency})</div>`;
+                });
+
+                output.innerHTML = `
+                    <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                        <div>Engine: Min-Max Normalization Parser Matrix</div>
+                        <div style="margin-top: 8px; font-weight: bold; color: #d97706;">Top 10 Most Popular Nouns (By Rating):</div>
+                        <div style="margin-top: 4px; padding-left: 8px; line-height: 1.5;">
+                            ${rowsHtml}
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                output.innerHTML = `<div style="color: #dc2626;">Error calculating popularity models: ${err.message}</div>`;
+            }
+        });
+    }
+
     /* 3.4.6 Auto-complete Word Prefix Suggestion Engine */
     const suggestRoot = document.getElementById('tweet-suggestion-root');
 
