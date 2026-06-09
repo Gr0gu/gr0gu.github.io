@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probability and Applied Statistics</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="scripts.js" defer type="module"></script>
+</head>
+
+<body>
+    <header>
+        <nav><a href="/">Home</a></nav>
+    </header>
+
+    <main id="root">
+        <h1>Probability and Applied Statistics</h1>
+
+        <section>
+            <h2>Lab 1.</h2>
+            <details open name="tasks">
+                <summary>1. How much should I bet ?</summary>
+                <div id="bet-root">
+                    <p>Are you in for some betting ? Let’s play a game. There are some specific rules to this game: A
+                        fair coin will be flipped until it falls on its head for the first time. You will be paid $2 to
+                        the power of j dollars if this occurs on the jth toss. You are sure to win at least 2 dollars so
+                        you should be willing to pay to play this game, but how much ? Few people would pay as much as
+                        10 dollars to play this game. See if you can decide, by simulation, a reasonable amount that you
+                        would be willing to pay, per game, if you will be allowed to make a large number of plays of the
+                        game. Does the amount that you would be willing to pay per game depend upon the number of plays
+                        that you will be allowed ?
+                        <p>
+                            <i>note: <a href="https://en.wikipedia.org/wiki/St._Petersburg_paradox" target="_blank">St. Petersburg paradox</a></i>
+                        </p>
+                    </p>
+                    <label for="bet-trials-input">Number of trials:</label>
+                    <input class="input" id="bet-trials-input" type="number" min="1" max="100" value="10">
+                    <label for="price-input">Desired price of a play:</label>
+                    <input class="price" id="bet-price-input" type="number" min="0" step="0.01" value="2">
+                    <button class="calculate">Calculate</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+            <details name="tasks">
+                <summary>2. I bet my life on this one</summary>
+                <div id="life-bet">
+                    <p>Are you still in the mood for betting ? Now let’s play something more interesting and serious!
+                        Let's try our skill at Russian roulette. Here's the conditions:<br>
+                        I only have two bullets in my revolver, which has a 6-slot barrel. Now I put the bullets into the
+                        revolver in adjacent slots,
+                        spin the barrel and hand you the gun. You point the gun to your head. You pull the trigger and
+                        ... Click! you're still alive. Congratulations but the game is not over yet. You have to pull
+                        the trigger one last time. Now you have two choices:
+                    <ol>
+                        <li>You spin the barrel afterwards you pull the trigger.</li>
+                        <li>You pull the trigger without spinning.</li>
+                    </ol>
+                    Luckily you have some time and a computer
+                    with you in your bag so you can simulate the current situation such that you can choose the
+                    correct choice.<br>
+                    Your assignment is to calculate the probability for both cases and after you've found the
+                    probability for the initial conditions you need also to find out what are the probabilities in
+                    case the bullets are not adjacent.<br>
+                    Now you need to calculate the same probabilities but in case
+                    when you have 2 bullets and the gun has a 5 slots barrel. You have to present the result for 8
+                    different outcomes. Good luck staying alive.
+                    </p>
+
+                    <ul>
+                        <li>6 slots, adjacent bullets, spin barrel</li>
+                        <li>6 slots, adjacent bullets, do not spin</li>
+                        <li>6 slots, non-adjacent bullets, spin barrel</li>
+                        <li>6 slots, non-adjacent bullets, do not spin</li>
+                        <li>5 slots, adjacent bullets, spin barrel</li>
+                        <li>5 slots, adjacent bullets, do not spin</li>
+                        <li>5 slots, non-adjacent bullets, spin barrel</li>
+                        <li>5 slots, non-adjacent bullets, do not spin</li>
+                    </ul>
+
+                    <button class="calculate">Calculate all cases</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+            <details name="tasks">
+                <summary>3. Labouchere strategy</summary>
+                <div id="labouchere-root">
+                    <p>One of the most popular casino games is roulette. Many people like roulette because it is an easy
+                        game to learn and play. Unlike other casino games, roulette doesn't have many complicated rules
+                        to follow or strategies to perfect. Because it's so simple, many people have tried to invent
+                        different strategies to win this game. One method is the Labouchere system. It is played as
+                        follows:<br> write down a list of numbers, usually <code>1, 2, 3, 4</code>. Bet the sum of the
+                        first and last,
+                        <code>1+4=5</code>, on red. If you win, delete the first and last numbers from your list. If you
+                        lose, add
+                        the amount that you last bet to the end of your list. Then use the new list and bet the sum of
+                        the first and last numbers (if there is only one number, bet that amount) in the roulette game.
+                        Continue until your list becomes empty. Show that, if this happens, you win the sum <code>1+2+3+4 =
+                        10</code>, of your original list.<br> Simulate the system and see if you do always stop and,
+                        hence, always
+                        win. If so, why is this not a foolproof gambling system ?
+                    </p>
+
+                    <label for="labouchere-bankroll-input">Starting bankroll:</label>
+                    <input class="bankroll" id="labouchere-bankroll-input" type="number" min="1" step="1" value="100">
+                    <label for="labouchere-limit-input">Table limit:</label>
+                    <input class="limit" id="labouchere-limit-input" type="number" min="1" step="1" value="1000">
+                    <button class="calculate">Simulate Labouchere</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+            <details name="tasks">
+                <summary>4. Oscar's Grind Strategy</summary>
+                <div id="oscars-grind-root">
+                    <p>Another well-known gambling strategy is the Oscar’s Grind (also known as Hoyle's Press), one
+                        conservative method designed to withstand long losing streaks. This system is based on the idea
+                        of breaking your session down into "sequences," where the specific goal of each sequence is to
+                        make exactly 1 unit of profit. It is played on even-money bets (like red/black or even/odd) as
+                        follows: Start with an initial bet of 1 unit. If you lose, your next bet remains exactly the
+                        same
+                        as your previous bet. If you win, increase your next bet by 1 unit, unless doing so would result
+                        in a sequence profit of more than 1 unit. In that case, you only bet the exact amount needed to
+                        achieve exactly 1 unit of total profit. When you reach +1 unit of profit, the sequence ends. You
+                        pocket the profit and start a new sequence with a 1-unit bet. Simulate the system and assume
+                        that you are betting on black. Evaluate: how the total profit/loss and your bet sizes evolve
+                        over time during a long sequence of alternating streaks of wins and losses, and why or why not
+                        this strategy might fail to guarantee profits, despite the initial logic.
+                    </p>
+
+                    <label for="oscars-bankroll-input">Starting bankroll:</label>
+                    <input class="bankroll" id="oscars-bankroll-input" type="number" min="1" step="1" value="1000">
+                    <label for="oscars-limit-input">Table limit:</label>
+                    <input class="limit" id="oscars-limit-input" type="number" min="1" step="1" value="500">
+
+                    <button class="calculate">Run simulation</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+            <details name="tasks">
+                <summary>5. Birthday attack</summary>
+                <div id="birthday-root">
+                    <p>
+                    <p>This exercise aims to introduce you to a very basic concept of hashing algorithms, how they work,
+                        why they are useful and what are their weaknesses. And along the way you'll pick up the
+                        principle behind the flaw of hashing functions.</p>
+                    <p>
+                        Do you remember at some lesson I explained to you about the birthday paradox that was used
+                        creating birthday attack. Now you're gone make the birthday attack with the md5 hashing
+                        algorithm. Your task ahead is to find collisions for this algorithm, (only for the first 40 bits
+                        of the hash, aka first 10 hex characters).</p>
+                    <p>
+                        You have to write a small program that would eventually find a collision for the first 40 bits
+                        generated by the md5 algorithm.
+                    </p>
+                    <i>note: <a href="https://en.wikipedia.org/wiki/MD5">MD5</a></i>
+                    </p>
+
+                    <button>Find collision</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2>Lab 2.</h2>
+            <details open name="tasks">
+                <summary>1. Task set</summary>
+                <div>
+                    <p>PSA exercises will be added here.</p>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2>Lab 3.</h2>
+            <details open name="tasks">
+                <summary>1. Task set</summary>
+                <div>
+                    <p>PSA exercises will be added here.</p>
+                </div>
+            </details>
+        </section>
+    </main>
+
+    <footer>
+        <p>by gr0gu</p>
+    </footer>
+</body>
+
+</html>
