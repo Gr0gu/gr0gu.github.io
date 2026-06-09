@@ -537,4 +537,291 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
         });
     }
+
+    /* 3.1 Interesting sequence occurrences */
+    const queueRoot = document.getElementById('customer-queue-root');
+
+    if (queueRoot) {
+        const queueButton = queueRoot.querySelector('.calculate');
+        const output = queueRoot.querySelector('.output');
+
+        queueButton.addEventListener('click', async () => {
+            const { default: simulateCustomerQueue } = await import('./3/customer_queue.js');
+            const trials = Number(document.getElementById('queue-trials').value) || 50000;
+
+            const res = simulateCustomerQueue(trials);
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Simulations Run:     ${trials.toLocaleString()}</div>
+                    <div>Avg Wait (Hours):    ${res.averageWaitHours.toFixed(4)} hours</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #2563eb;">
+                        Avg Wait (Minutes):  ${res.averageWaitMinutes.toFixed(2)} minutes
+                    </div>
+                    <div style="margin-top: 8px; color: #6b7280;">
+                        Theoretical Value:   10.00 minutes (Memoryless Property)
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 3.2 Continuous Conditional probability */
+    const dartRoot = document.getElementById('dart-prob-root');
+
+    if (dartRoot) {
+        const dartButton = dartRoot.querySelector('.calculate');
+        const output = dartRoot.querySelector('.output');
+
+        dartButton.addEventListener('click', async () => {
+            const { default: simulateDartThrows } = await import('./3/dart_prob.js');
+            const trials = Number(document.getElementById('dart-trials').value) || 100000;
+
+            const res = simulateDartThrows(trials);
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Valid Upper Half Throws: ${trials.toLocaleString()}</div>
+                    <div style="margin-top: 6px;">1. Right Half:         ${(res.probRightHalf * 100).toFixed(2)}% (Theoretical: 50.00%)</div>
+                    <div>2. Distance < 5:       ${(res.probLessThan5 * 100).toFixed(2)}% (Theoretical: 25.00%)</div>
+                    <div>3. Distance > 5:       ${(res.probGreaterThan5 * 100).toFixed(2)}% (Theoretical: 75.00%)</div>
+                    <div>4. Within 5" of (0,5): ${(res.probNearPoint * 100).toFixed(2)}% (Theoretical: 50.00%)</div>
+                </div>
+            `;
+        });
+    }
+
+    /* 3.3 Counting (Lost Ticket Theater) */
+    const theaterRoot = document.getElementById('theater-seats-root');
+
+    if (theaterRoot) {
+        const theaterButton = theaterRoot.querySelector('.calculate');
+        const output = theaterRoot.querySelector('.output');
+
+        theaterButton.addEventListener('click', async () => {
+            const { default: simulateTheaterSeats } = await import('./3/theater_seats.js');
+            const trials = Number(document.getElementById('theater-trials').value) || 10000;
+
+            const probability = simulateTheaterSeats(100, trials);
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Simulations Run:     ${trials.toLocaleString()}</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #2563eb;">
+                        Simulated Probability: ${(probability * 100).toFixed(2)}%
+                    </div>
+                    <div style="margin-top: 8px; color: #6b7280;">
+                        Theoretical Value:     50.00%
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 3.4.1 Word Frequency Parsing */
+    const parserRoot = document.getElementById('tweet-parser-root');
+
+    if (parserRoot) {
+        const parseButton = parserRoot.querySelector('.calculate');
+        const output = parserRoot.querySelector('.output');
+
+        parseButton.addEventListener('click', async () => {
+            const { default: parseTweetFrequency } = await import('./3/tweet_parser.js');
+
+            output.innerHTML = '<div>Processing dataset arrays...</div>';
+            const sortedWords = await parseTweetFrequency();
+
+            // Format top 10 tokens for preview metrics
+            let rowsHtml = '';
+            sortedWords.slice(0, 10).forEach(([word, count]) => {
+                rowsHtml += `<div>• ${word}: ${count.toLocaleString()} times</div>`;
+            });
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Unique Tokens Extracted: ${sortedWords.length.toLocaleString()}</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #2563eb;">Top 10 Most Frequent Words:</div>
+                    <div style="margin-top: 4px; padding-left: 8px; line-height: 1.4;">
+                        ${rowsHtml}
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 3.4.2 Nouns Frequency Parsing */
+    const nounsRoot = document.getElementById('tweet-nouns-root');
+
+    if (nounsRoot) {
+        const nounsButton = nounsRoot.querySelector('.calculate');
+        const output = nounsRoot.querySelector('.output');
+
+        nounsButton.addEventListener('click', async () => {
+            const { default: parseTweetNouns } = await import('./3/tweet_nouns.js');
+
+            output.innerHTML = '<div>Running NLP Part-of-Speech tagging...</div>';
+            const sortedNouns = await parseTweetNouns();
+
+            // Format top 10 nouns for the UI display
+            let rowsHtml = '';
+            sortedNouns.slice(0, 10).forEach(([noun, count]) => {
+                rowsHtml += `<div>• <strong>${noun}</strong>: ${count.toLocaleString()} occurrences</div>`;
+            });
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Unique Nouns Identified: ${sortedNouns.length.toLocaleString()}</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #16a34a;">Top 10 Most Frequent Nouns:</div>
+                    <div style="margin-top: 4px; padding-left: 8px; line-height: 1.4;">
+                        ${rowsHtml}
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 3.4.3 Proper Nouns Frequency Parsing */
+    const properNounsRoot = document.getElementById('tweet-proper-nouns-root');
+
+    if (properNounsRoot) {
+        const properButton = properNounsRoot.querySelector('.calculate');
+        const output = properNounsRoot.querySelector('.output');
+
+        properButton.addEventListener('click', async () => {
+            const { default: parseTweetProperNouns } = await import('./3/tweet_proper_nouns.js');
+
+            output.innerHTML = '<div>Isolating proper entities and named text tokens...</div>';
+
+            try {
+                const sortedProperNouns = await parseTweetProperNouns();
+
+                // Format the top 10 proper nouns for rendering
+                let rowsHtml = '';
+                sortedProperNouns.slice(0, 10).forEach(([entity, count]) => {
+                    rowsHtml += `<div>• <strong>${entity}</strong>: ${count.toLocaleString()} mentions</div>`;
+                });
+
+                output.innerHTML = `
+                    <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                        <div>Engine: Named Entity Recognition Layer (Compromise NLP)</div>
+                        <div style="margin-top: 8px; font-weight: bold; color: #7c3aed;">Top 10 Most Frequent Proper Nouns:</div>
+                        <div style="margin-top: 4px; padding-left: 8px; line-height: 1.4;">
+                            ${rowsHtml.length > 0 ? rowsHtml : '<div>No entities found matching exact filters.</div>'}
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                output.innerHTML = `<div style="color: #dc2626; font-family: monospace;">Failed to compile proper nouns: ${error.message}</div>`;
+            }
+        });
+    }
+
+    /* 3.4.4 Monthly Word Frequency Chart Generation */
+    const freqRoot = document.getElementById('tweet-frequency-root');
+    let frequencyChartInstance = null;
+
+    if (freqRoot) {
+        const freqButton = freqRoot.querySelector('.calculate');
+        const output = freqRoot.querySelector('.output');
+        const canvasContainer = freqRoot.querySelector('.canvas-container');
+        const canvas = document.getElementById('monthly-frequency-chart');
+
+        freqButton.addEventListener('click', async () => {
+            const { default: parseMonthlyWordFrequency } = await import('./3/tweet_month_frequency.js');
+            const { default: Chart } = await import('https://cdn.jsdelivr.net/npm/chart.js/auto/+esm');
+            const targetWord = document.getElementById('freq-keyword').value || 'the';
+
+            output.innerHTML = '<div>Scanning temporal metrics from tweet fields...</div>';
+
+            try {
+                const dataProfile = await parseMonthlyWordFrequency(targetWord);
+
+                if (canvasContainer) canvasContainer.style.display = 'block';
+                if (frequencyChartInstance) frequencyChartInstance.destroy();
+
+                // Instantiate standard interactive browser bar chart via Chart.js
+                frequencyChartInstance = new Chart(canvas.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: dataProfile.months,
+                        datasets: [{
+                            label: `Occurrences of "${targetWord}"`,
+                            data: dataProfile.counts,
+                            backgroundColor: '#2563eb',
+                            borderColor: '#1d4ed8',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: true, position: 'top' }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Frequency Count' }
+                            },
+                            x: {
+                                title: { display: true, text: 'Monthly Interval (YYYY-MM)' }
+                            }
+                        }
+                    }
+                });
+
+                const totalMentions = dataProfile.counts.reduce((sum, val) => sum + val, 0);
+                output.innerHTML = `
+                    <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                        <div>Query Token: <strong>"${targetWord}"</strong></div>
+                        <div style="margin-top: 4px; font-weight: bold; color: #10b981;">
+                            Total Global Occurrences: ${totalMentions.toLocaleString()} times
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                output.innerHTML = `<div style="color: #dc2626;">Error drawing chart: ${err.message}</div>`;
+            }
+        });
+    }
+
+    /* 3.4.6 Auto-complete Word Prefix Suggestion Engine */
+    const suggestRoot = document.getElementById('tweet-suggestion-root');
+
+    if (suggestRoot) {
+        const suggestButton = suggestRoot.querySelector('.calculate');
+        const output = suggestRoot.querySelector('.output');
+
+        suggestButton.addEventListener('click', async () => {
+            const { default: getWordSuggestions } = await import('./3/tweet_suggestion.js');
+            const prefixInput = document.getElementById('suggest-prefix').value;
+
+            output.innerHTML = '<div>Indexing prefixes and evaluating word vectors...</div>';
+
+            try {
+                const recommendations = await getWordSuggestions(prefixInput);
+
+                if (recommendations.length === 0) {
+                    output.innerHTML = `<div style="margin-top: 15px; color: #6b7280;">No suggestions found starting with "${prefixInput}".</div>`;
+                    return;
+                }
+
+                // Format predictions into the output target
+                let resultStrings = recommendations.map(([word, freq]) => `<strong>${word}</strong> (${freq})`);
+
+                output.innerHTML = `
+                    <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                        <div>Input Prefix: <span style="background-color: #f3f4f6; padding: 2px 6px; border-radius: 4px;">"${prefixInput}"</span></div>
+                        <div style="margin-top: 8px; font-weight: bold; color: #2563eb;">Output Suggestions:</div>
+                        <div style="margin-top: 4px; padding-left: 8px; font-size: 14px;">
+                            ${resultStrings.join(', ')}
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                output.innerHTML = `<div style="color: #dc2626;">Error computing prediction profiles: ${err.message}</div>`;
+            }
+        });
+    }
 });

@@ -366,10 +366,140 @@
         <!-- ==================== LAB 3 ==================== -->
         <section>
             <h2>Lab 3.</h2>
-            <details open name="tasks">
-                <summary>1. Task set</summary>
-                <div>
-                    <p>PSA exercises will be added here.</p>
+
+            <details name="tasks">
+                <summary>1. Interesting sequence occurrences</summary>
+                <div id="customer-queue-root">
+                    <p>
+                        Suppose we have a queue of customers arriving at a store. We assume that the time
+                        between customer arrivals is exponentially distributed, with an average arrival rate of
+                        6 customers per hour. You arrive at the store at time T=50, and wait for the next
+                        customer to arrive. How long, on average, will you have to wait? Verify your answer
+                        using a JavaScript simulation.
+                    </p>
+                    <label for="queue-trials">Number of simulations:</label>
+                    <input class="input" id="queue-trials" type="number" min="100" max="500000" value="50000">
+                    <button class="calculate">Simulate Queue</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>2. Continuous Conditional probability</summary>
+                <div id="dart-prob-root">
+                    <p>
+                        Suppose you toss a dart at a circular target of radius 10 inches. Given that the dart
+                        lands in the upper half of the target, find the probability that:
+                    </p>
+                    <ul>
+                        <li>It lands in the right half of the target</li>
+                        <li>Its distance from the centre is less than 5 inches</li>
+                        <li>Its distance from the centre is greater than 5 inches</li>
+                        <li>It lands within 5 inches of the point (0, 5)</li>
+                    </ul>
+                    <label for="dart-trials">Number of throws:</label>
+                    <input class="input" id="dart-trials" type="number" min="100" max="1000000" value="100000">
+                    <button class="calculate">Simulate Dart Throws</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>3. Counting (Lost Ticket Theater)</summary>
+                <div id="theater-seats-root">
+                    <p>
+                        100 people line up to take their seats in a 100 seat theater. The 1st in line lost her
+                        ticket and decided to sit in a random seat. Each remaining theatergoer sits in their
+                        assigned seat unless it's occupied and then sits in a random seat. What's the
+                        probability the last person takes their assigned seat?
+                    </p>
+                    <label for="theater-trials">Number of simulations:</label>
+                    <input class="input" id="theater-trials" type="number" min="100" max="100000" value="10000">
+                    <button class="calculate">Simulate Theater Seating</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>4. Networking & NLP Platform</summary>
+                <div id="nlp-network-root">
+                    <p>
+                        Data analytics tasks involving tweet parsing, word frequency metrics, popularity
+                        indexing coefficients, and predictive keystroke suggestions.
+                    </p>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>4.1 Word Frequency Parsing</summary>
+                <div id="tweet-parser-root">
+                    <p>
+                        Parse the attached tweets dataset to clean the text profiles and compute
+                        global word occurrences across all records.
+                    </p>
+                    <button class="calculate">Analyze Dataset</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>4.2 Most Frequent Nouns (Compromise Production)</summary>
+                <div id="tweet-nouns-root">
+                    <p>
+                        Parse the dataset using a production-grade NLP tokenizer and POS tagger
+                        to extract and isolate the top 10 most frequently used nouns.
+                    </p>
+                    <button class="calculate">Extract Nouns</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>4.3 Most Frequent Proper Nouns</summary>
+                <div id="tweet-proper-nouns-root">
+                    <p>
+                        Parse the dataset using NLP part-of-speech rules to isolate and count the top 10
+                        most frequently used proper nouns (specific entities, names, and places).
+                    </p>
+                    <button class="calculate">Extract Proper Nouns</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>4.4 Monthly Word Frequency Chart</summary>
+                <div id="tweet-frequency-root">
+                    <p>
+                        Enter a keyword to map its historical mention frequencies across distinct monthly periods
+                        represented as a chronological Chart.js bar graph.
+                    </p>
+                    <div style="margin-bottom: 12px; display: flex; gap: 8px; align-items: center;">
+                        <label for="freq-keyword">Target Word:</label>
+                        <input class="input" id="freq-keyword" type="text" value="the"
+                            style="padding: 4px 8px; border-radius: 4px; border: 1px solid #d1d5db;">
+                        <button class="calculate">Generate Chart</button>
+                    </div>
+                    <div class="canvas-container"
+                        style="display:none; height: 300px; position: relative; margin-top: 15px;">
+                        <canvas id="monthly-frequency-chart"></canvas>
+                    </div>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>4.6 Word Prefix Suggestions</summary>
+                <div id="tweet-suggestion-root">
+                    <p>
+                        Type an incomplete word prefix to retrieve the top 3 completed word suggestions 
+                        based on global frequency tracking.
+                    </p>
+                    <div style="margin-bottom: 12px; display: flex; gap: 8px; align-items: center;">
+                        <label for="suggest-prefix">Prefix Input:</label>
+                        <input class="input" id="suggest-prefix" type="text" value="app" style="padding: 4px 8px; border-radius: 4px; border: 1px solid #d1d5db; width: 120px;">
+                        <button class="calculate">Get Suggestions</button>
+                    </div>
+                    <div class="output"></div>
                 </div>
             </details>
         </section>
