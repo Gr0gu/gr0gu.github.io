@@ -197,7 +197,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     /* 1.5 */
-    const birthdayAttack = await import('./1/birthday_attack.js');
     const birthdayRoot = document.getElementById('birthday-root');
     const birthdayButton = birthdayRoot.querySelector('button');
 

@@ -5,7 +5,7 @@ function findCollision() {
     const hashes = new Map();
 
     while (true) {
-        const string = generateString(3);
+        const string = generateString(7);
 
         if (generatedStrings.has(string)) {
             continue;
