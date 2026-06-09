@@ -17,6 +17,7 @@
     <main id="root">
         <h1>Probability and Applied Statistics</h1>
 
+        <!-- ==================== LAB 1 ==================== -->
         <section>
             <h2>Lab 1.</h2>
             <details open name="tasks">
@@ -30,13 +31,14 @@
                         would be willing to pay, per game, if you will be allowed to make a large number of plays of the
                         game. Does the amount that you would be willing to pay per game depend upon the number of plays
                         that you will be allowed ?
-                        <p>
-                            <i>note: <a href="https://en.wikipedia.org/wiki/St._Petersburg_paradox" target="_blank">St. Petersburg paradox</a></i>
-                        </p>
+                    <p>
+                        <i>note: <a href="https://en.wikipedia.org/wiki/St._Petersburg_paradox" target="_blank">St.
+                                Petersburg paradox</a></i>
+                    </p>
                     </p>
                     <label for="bet-trials-input">Number of trials:</label>
-                    <input class="input" id="bet-trials-input" type="number" min="1" max="100" value="10">
-                    <label for="price-input">Desired price of a play:</label>
+                    <input class="input" id="bet-trials-input" type="number" min="1" max="100000" value="10">
+                    <label for="bet-price-input">Desired price of a play:</label>
                     <input class="price" id="bet-price-input" type="number" min="0" step="0.01" value="2">
                     <button class="calculate">Calculate</button>
                     <div class="output"></div>
@@ -47,7 +49,8 @@
                 <div id="life-bet">
                     <p>Are you still in the mood for betting ? Now let’s play something more interesting and serious!
                         Let's try our skill at Russian roulette. Here's the conditions:<br>
-                        I only have two bullets in my revolver, which has a 6-slot barrel. Now I put the bullets into the
+                        I only have two bullets in my revolver, which has a 6-slot barrel. Now I put the bullets into
+                        the
                         revolver in adjacent slots,
                         spin the barrel and hand you the gun. You point the gun to your head. You pull the trigger and
                         ... Click! you're still alive. Congratulations but the game is not over yet. You have to pull
@@ -161,16 +164,206 @@
             </details>
         </section>
 
+        <!-- ==================== LAB 2 ==================== -->
         <section>
             <h2>Lab 2.</h2>
-            <details open name="tasks">
-                <summary>1. Task set</summary>
-                <div>
-                    <p>PSA exercises will be added here.</p>
+
+            <details name="tasks">
+                <summary>1. Interesting observation</summary>
+                <div id="dice-observation-root">
+                    <p>
+                        One student during a probability lecture noticed that although the number of faces of
+                        dice with integers from 1 to 6 with total 9 is like the number of such triples with value
+                        10, a 9 seemed to come up less frequently than a 10 when three dice were rolled.
+                        Write a program to verify if the student was correct. For better proof, plot a graph
+                        with results.
+                    </p>
+                    <label for="dice-trials">Number of rolls:</label>
+                    <input class="input" id="dice-trials" type="number" min="100" max="1000000" value="100000">
+                    <button class="calculate">Simulate Roll</button>
+                    <div style="margin-top: 15px; max-width: 600px; background: #fff; padding: 10px; border-radius: 4px; display: none;"
+                        class="canvas-container">
+                        <canvas id="dice-chart" style="width: 100%; height: 200px;"></canvas>
+                    </div>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>2. National Election</summary>
+                <div id="national-election-root">
+                    <p>
+                        In an upcoming national election for the President of the United States, a pollster
+                        plans to predict the winner of the popular vote by taking a random sample of voters and
+                        declaring that the winner will be the one obtaining the most votes in his sample.
+                        Suppose that 48% of the voters plan to vote for the Republican candidate, and 52% plan to
+                        vote for the Democratic candidate. To get some idea of how reasonable the pollster's plan
+                        is, write a program to make this prediction by simulation. Repeat the simulation 100 times
+                        and see how many times the pollster's prediction would come true.<br><br>
+                        Repeat the experiment assuming a 49%/51% split. Also try with a sample of 3000 instead of 1000.
+                    </p>
+                    <label for="election-split">Voter Split (Rep / Dem):</label>
+                    <select class="input" id="election-split"
+                        style="padding: 6px; border-radius: 4px; border: 1px solid #ccc; font-size: 1rem;">
+                        <option value="48-52">48% Republican / 52% Democrat</option>
+                        <option value="49-51">49% Republican / 51% Democrat</option>
+                    </select>
+
+                    <label for="election-sample">Sample size:</label>
+                    <input class="input" id="election-sample" type="number" min="10" max="10000" value="1000">
+
+                    <label for="election-simulations">Repeat Simulations:</label>
+                    <input class="input" id="election-simulations" type="number" min="1" max="1000" value="100">
+
+                    <button class="calculate">Run Election Simulation</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>3. Densities (Stick Breaking)</summary>
+                <div id="stick-breaking-root">
+                    <p>
+                        Take a stick of unit length and break it into two pieces, choosing the breakpoint at
+                        random. Now break the longer of the two pieces at a random point. What is the
+                        probability that the three pieces can be used to form a triangle?<br><br>
+                        Write a computer program that would simulate the experiment. Explain your results.
+                    </p>
+                    <label for="stick-trials">Number of trials:</label>
+                    <input class="input" id="stick-trials" type="number" min="100" max="1000000" value="100000">
+                    <button class="calculate">Simulate Stick Breaking</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>4. Densities (Circle Quadrilateral)</summary>
+                <div id="quadrilateral-circle-root">
+                    <p>
+                        Four points are chosen at random on a circle of unit circumference. What is the
+                        probability that the quadrilateral formed by these points is convex and that all its
+                        interior angles are less than 120 degrees?
+                    </p>
+                    <label for="quad-trials">Number of trials:</label>
+                    <input class="input" id="quad-trials" type="number" min="100" max="1000000" value="100000">
+                    <button class="calculate">Simulate Circle Points</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>5. Family cases</summary>
+                <div id="family-cases-root">
+                    <p>
+                        Let's estimate, by simulation, the average number of children there would be in a family if all
+                        people had children until they had a boy (Scheme 1). Do the same if all people had children
+                        until
+                        they had at least one boy and at least one girl (Scheme 2). How many more children would you
+                        expect
+                        to find under the second scheme than under the first in 100,000 families?
+                    </p>
+                    <label for="family-count">Number of families:</label>
+                    <input class="input" id="family-count" type="number" min="1000" max="500000" value="100000">
+                    <button class="calculate">Simulate Families</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>6. Densities (Coin Toss Checkerboard)</summary>
+                <div id="coin-toss-checkerboard-root">
+                    <p>
+                        At the Ziua Vinului, a coin toss game works as follows. Coins of 25 bani are tossed
+                        onto a checkerboard. The management keeps all the coins, but for each coin landing
+                        entirely within one square of the checkerboard the management pays 1 leu. Assume
+                        that the edge of each square is twice the diameter of a coin, and that the outcomes
+                        are described by coordinates chosen at random. Is this a fair game?
+                    </p>
+                    <label for="board-trials">Number of tosses:</label>
+                    <input class="input" id="board-trials" type="number" min="100" max="1000000" value="100000">
+                    <button class="calculate">Simulate Coin Tosses</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>7. Densities (Heads Histogram)</summary>
+                <div id="heads-histogram-root">
+                    <p>
+                        Write a program to carry out the following experiment. A coin is tossed 100 times
+                        and the number of heads that turn up is recorded. This experiment is then repeated
+                        1000 times. Have your program plot a bar graph for the proportion of the 1000
+                        experiments in which the number of heads is n, for each n in the interval [35, 65].
+                        Does the bar graph look as though it can be fit with a normal curve?
+                    </p>
+                    <label for="hist-tosses">Number of coin tosses:</label>
+                    <input class="input" id="hist-tosses" type="number" min="10" max="500" value="100">
+                    <label for="hist-repeats">Repeat experiment times:</label>
+                    <input class="input" id="hist-repeats" type="number" min="100" max="50000" value="1000">
+                    <button class="calculate">Run Experiment</button>
+                    <div style="margin-top: 15px; max-width: 600px; background: #fff; padding: 10px; border-radius: 4px; display: none;"
+                        class="canvas-container">
+                        <canvas id="heads-chart" style="width: 100%; height: 220px;"></canvas>
+                    </div>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>8. Densities (Circular Table Neighbors)</summary>
+                <div id="circular-table-root">
+                    <p>
+                        At a mathematical conference, 10 participants are randomly seated around a circular
+                        table for meals. Using simulation, estimate the probability that no two people sit next
+                        to each other at both lunch and dinner. Can you make an intelligent conjecture for
+                        the case of n participants when n is large?
+                    </p>
+                    <label for="table-participants">Number of participants (n):</label>
+                    <input class="input" id="table-participants" type="number" min="4" max="50" value="10">
+                    <label for="table-trials">Number of trials:</label>
+                    <input class="input" id="table-trials" type="number" min="100" max="100000" value="10000">
+                    <button class="calculate">Simulate Seating</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>9. Random Variables (Uniform Game)</summary>
+                <div id="uniform-game-root">
+                    <p>
+                        A game is played as follows: A random number X is chosen uniformly from [0, 1].
+                        Then a sequence $Y_1, Y_2, \dots$ of random numbers is chosen independently and
+                        uniformly from [0, 1]. The game ends the first time that $Y_i > X$. You are then paid $(i -
+                        1)$ dollars. What is a fair entrance fee for this game?
+                    </p>
+                    <label for="game-trials">Number of plays:</label>
+                    <input class="input" id="game-trials" type="number" min="100" max="1000000" value="100000">
+                    <button class="calculate">Simulate Plays</button>
+                    <div class="output"></div>
+                </div>
+            </details>
+
+            <details name="tasks">
+                <summary>10. Important Distributions (Jora Petrovici)</summary>
+                <div id="troleibuz-jora-root">
+                    <p>
+                        Jora Petrovici never pays the troleibuz (cost = 7 lei in Chisinau). He assumes that
+                        there is a probability of 0.05 that he will be caught by the controlor. The first offense
+                        costs 50 lei, the second costs 200 lei, and subsequent offenses cost 300 lei. There's
+                        also an empirically proven probability of 0.02 that the taxatoarea is a hairy muscular
+                        guy, which means that he'll have to pay the 7 lei anyway. How does the expected
+                        cost of riding the troleibuz for a year (two times a day) without paying compare to the
+                        cost that is paid by us, law-abiding students?
+                    </p>
+                    <label for="jora-days">Riding days in a year:</label>
+                    <input class="input" id="jora-days" type="number" min="1" max="365" value="365">
+                    <button class="calculate">Simulate Jora's Year</button>
+                    <div class="output"></div>
                 </div>
             </details>
         </section>
 
+        <!-- ==================== LAB 3 ==================== -->
         <section>
             <h2>Lab 3.</h2>
             <details open name="tasks">

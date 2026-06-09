@@ -229,4 +229,312 @@ document.addEventListener('DOMContentLoaded', async () => {
             worker.terminate();
         })
     });
+
+    /* 2.1 */
+    const diceRoot = document.getElementById('dice-observation-root');
+    let diceChartInstance = null;
+
+    if (diceRoot) {
+        const diceButton = diceRoot.querySelector('.calculate');
+        const output = diceRoot.querySelector('.output');
+        const canvasContainer = diceRoot.querySelector('.canvas-container');
+        const canvas = document.getElementById('dice-chart');
+
+        diceButton.addEventListener('click', async () => {
+            const { default: simulateDiceRolls } = await import('./2/dice_observation.js');
+            const { default: Chart } = await import('https://cdn.jsdelivr.net/npm/chart.js/auto/+esm');
+
+            const trials = Number(document.getElementById('dice-trials').value);
+
+            const counts = simulateDiceRolls(trials);
+
+            const labels = Array.from({ length: 16 }, (_, i) => i + 3);
+            const probabilities = labels.map(sum => (counts[sum] / trials) * 100);
+
+            if (canvasContainer) {
+                canvasContainer.style.display = 'block';
+            }
+
+            if (diceChartInstance) {
+                diceChartInstance.destroy();
+            }
+
+            const backgroundColors = labels.map(sum => sum === 9 ? 'rgba(234, 88, 12, 0.75)' : sum === 10 ? 'rgba(37, 99, 235, 0.75)' : 'rgba(156, 163, 175, 0.3)');
+            const borderColors = labels.map(sum => sum === 9 ? 'rgba(234, 88, 12, 1)' : sum === 10 ? 'rgba(37, 99, 235, 1)' : 'rgba(156, 163, 175, 0.6)');
+
+            diceChartInstance = new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Observed Frequency (%)',
+                        data: probabilities,
+                        backgroundColor: backgroundColors,
+                        borderColor: borderColors,
+                        borderWidth: 1.5,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Probability (%)' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Sum of Three Dice' }
+                        }
+                    }
+                }
+            });
+
+            const p9 = ((counts[9] / trials) * 100).toFixed(3);
+            const p10 = ((counts[10] / trials) * 100).toFixed(3);
+
+            output.innerHTML = `
+                <div style="margin-top: 20px; padding: 15px; background: #fafafa; border: 1px solid #e4e4e7; border-radius: 6px; font-size: 0.95rem; line-height: 1.5;">
+                    <p>probability for <strong>Sum 9: ${p9}%</strong></p>
+                    <p>probability for <strong>Sum 10: ${p10}%</strong></p>
+                    <p><i>Sum 10 consistently occurs slightly more often than Sum 9, despite both targets having exactly 6 partition footprints.</i></p>
+                </div>
+            `;
+        });
+    }
+
+    /* 2.2 National Election */
+    const electionRoot = document.getElementById('national-election-root');
+
+    if (electionRoot) {
+        const electionButton = electionRoot.querySelector('.calculate');
+        const output = electionRoot.querySelector('.output');
+
+        electionButton.addEventListener('click', async () => {
+            const { default: simulateElection } = await import('./2/national_election.js');
+
+            const splitVal = document.getElementById('election-split').value;
+            const sampleSize = Number(document.getElementById('election-sample').value) || 1000;
+            const simulations = Number(document.getElementById('election-simulations').value) || 100;
+
+            const demProbability = splitVal === '48-52' ? 0.52 : 0.51;
+
+            const correctCount = simulateElection(sampleSize, demProbability, simulations);
+            const accuracy = ((correctCount / simulations) * 100).toFixed(1);
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>True Distribution: ${(100 - demProbability * 100)}% Rep / ${(demProbability * 100)}% Dem</div>
+                    <div>Sample Size (N):    ${sampleSize}</div>
+                    <div>Total Runs:         ${simulations}</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #16a34a;">
+                        Correct Predictions: ${correctCount} / ${simulations} (${accuracy}%)
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 2.3 Densities (Stick Breaking) */
+    const stickRoot = document.getElementById('stick-breaking-root');
+
+    if (stickRoot) {
+        const stickButton = stickRoot.querySelector('.calculate');
+        const output = stickRoot.querySelector('.output');
+
+        stickButton.addEventListener('click', async () => {
+            const { default: simulateStickBreaking } = await import('./2/stick_breaking.js');
+            const trials = Number(document.getElementById('stick-trials').value) || 100000;
+
+            const probability = simulateStickBreaking(trials);
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Total Trials:    ${trials.toLocaleString()}</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #2563eb;">
+                        Simulated Probability: ${(probability * 100).toFixed(3)}%
+                    </div>
+                    <div style="margin-top: 8px; color: #6b7280;">
+                        Theoretical Value:     ~38.63% (ln(2) - 0.5)
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 2.4 Densities (Circle Quadrilateral) */
+    const quadRoot = document.getElementById('quadrilateral-circle-root');
+
+    if (quadRoot) {
+        const quadButton = quadRoot.querySelector('.calculate');
+        const output = quadRoot.querySelector('.output');
+
+        quadButton.addEventListener('click', async () => {
+            const { default: simulateCircleQuadrilateral } = await import('./2/circle_quadrilateral.js');
+            const trials = Number(document.getElementById('quad-trials').value) || 100000;
+
+            const probability = simulateCircleQuadrilateral(trials);
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Total Trials:    ${trials.toLocaleString()}</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #2563eb;">
+                        Simulated Probability: ${(probability * 100).toFixed(3)}%
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 2.5 Family cases */
+    const familyRoot = document.getElementById('family-cases-root');
+
+    if (familyRoot) {
+        const familyButton = familyRoot.querySelector('.calculate');
+        const output = familyRoot.querySelector('.output');
+
+        familyButton.addEventListener('click', async () => {
+            const { default: simulateFamilyCases } = await import('./2/family_cases.js');
+            const numFamilies = Number(document.getElementById('family-count').value) || 100000;
+
+            const res = simulateFamilyCases(numFamilies);
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Families Simulated:        ${numFamilies.toLocaleString()}</div>
+                    <div>Avg Children (Scheme 1):   ${res.avgS1.toFixed(3)} (Expected: 2.0)</div>
+                    <div>Avg Children (Scheme 2):   ${res.avgS2.toFixed(3)} (Expected: 3.0)</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #ea580c;">
+                        Extra Children per 100k:    ${Math.round(res.differenceInExpected).toLocaleString()} (Expected: 100,000)
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 2.6 Densities (Coin Toss Checkerboard) */
+    const boardRoot = document.getElementById('coin-toss-checkerboard-root');
+
+    if (boardRoot) {
+        const boardButton = boardRoot.querySelector('.calculate');
+        const output = boardRoot.querySelector('.output');
+
+        boardButton.addEventListener('click', async () => {
+            const { default: simulateCheckerboard } = await import('./2/coin_toss_checkerboard.js');
+            const trials = Number(document.getElementById('board-trials').value) || 100000;
+
+            const res = simulateCheckerboard(trials);
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Total Tosses:         ${trials.toLocaleString()}</div>
+                    <div>Win Probability:      ${(res.winProbability * 100).toFixed(2)}% (Theoretical: 25.00%)</div>
+                    <div>Expected Return/Leu:  ${res.expectedReturnReturnPerLeu ? res.expectedReturnReturnPerLeu.toFixed(2) : (res.winProbability * 4).toFixed(2)} Lei</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #dc2626;">
+                        Game Status:           ${(res.winProbability * 4) === 1.0 ? 'Fair' : 'Unfair (House Edge: 0%)'}
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 2.7 Densities (Heads Histogram) */
+    const histogramRoot = document.getElementById('heads-histogram-root');
+    let histogramChartInstance = null;
+
+    if (histogramRoot) {
+        const histButton = histogramRoot.querySelector('.calculate');
+        const output = histogramRoot.querySelector('.output');
+        const canvasContainer = histogramRoot.querySelector('.canvas-container');
+        const canvas = document.getElementById('heads-chart');
+
+        histButton.addEventListener('click', async () => {
+            const { default: simulateHeadsHistogram } = await import('./2/heads_histogram.js');
+            const { default: Chart } = await import('https://cdn.jsdelivr.net/npm/chart.js/auto/+esm');
+
+            const tosses = Number(document.getElementById('hist-tosses').value) || 1000;
+            const repeats = Number(document.getElementById('hist-repeats').value) || 100;
+
+            const frequencies = simulateHeadsHistogram(tosses, repeats);
+
+            // Filter intervals between [35, 65] relative to 100 tosses default context scale
+            // To make it dynamic, we can view the range around the median ±15%
+            const median = Math.floor(tosses / 2);
+            const minBound = Math.max(0, median - Math.floor(tosses * 0.15));
+            const maxBound = Math.min(tosses, median + Math.floor(tosses * 0.15));
+
+            const labels = [];
+            const datasetData = [];
+
+            for (let n = minBound; n <= maxBound; n++) {
+                labels.push(n);
+                datasetData.push(frequencies[n] / repeats);
+            }
+
+            if (canvasContainer) canvasContainer.style.display = 'block';
+            if (histogramChartInstance) histogramChartInstance.destroy();
+
+            histogramChartInstance = new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Proportion',
+                        data: datasetData,
+                        backgroundColor: '#3b82f6',
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { title: { display: true, text: 'Proportion' } },
+                        x: { title: { display: true, text: 'Number of Heads (n)' } }
+                    }
+                }
+            });
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Tosses per Experiment: ${tosses}</div>
+                    <div>Total Repeats:        ${repeats.toLocaleString()}</div>
+                    <div style="margin-top: 8px; color: #6b7280;">
+                        Note: The distribution follows a binomial shape ($p=0.5$). According to the Central Limit Theorem, as the number of experiments grows, it converges tightly to a smooth Normal Bell Curve.
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    /* 2.8 Densities (Circular Table Neighbors) */
+    const tableRoot = document.getElementById('circular-table-root');
+
+    if (tableRoot) {
+        const tableButton = tableRoot.querySelector('.calculate');
+        const output = tableRoot.querySelector('.output');
+
+        tableButton.addEventListener('click', async () => {
+            const { default: simulateSeating } = await import('./2/circular_table.js');
+
+            const n = Number(document.getElementById('table-participants').value) || 10;
+            const trials = Number(document.getElementById('table-trials').value) || 10000;
+
+            const probability = simulateSeating(n, trials);
+
+            output.innerHTML = `
+                <div style="margin-top: 15px; padding: 12px; border: 1px solid #e4e4e7; border-radius: 6px; font-family: monospace;">
+                    <div>Participants (n):    ${n}</div>
+                    <div>Total Trials:         ${trials.toLocaleString()}</div>
+                    <div style="margin-top: 8px; font-weight: bold; color: #2563eb;">
+                        Simulated Probability: ${(probability * 100).toFixed(3)}%
+                    </div>
+                </div>
+            `;
+        });
+    }
 });
